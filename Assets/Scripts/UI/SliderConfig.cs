@@ -17,6 +17,9 @@ public class SliderConfig : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _valueDisplayTextField;
 
+    [SerializeField]
+    private bool _wholeNumber;
+
     public ScalePanal ParentScalePanal { get; set; }
 
     public float Value { get => _scaleSlider.value; }
@@ -35,12 +38,27 @@ public class SliderConfig : MonoBehaviour
     private void UpdateSliderValue(float newValue)
     {
         OnValueChanged?.Invoke(_scaleAxis, newValue);
-        _valueDisplayTextField.text = newValue.ToString();
+
+        if (_wholeNumber)
+        {
+            _valueDisplayTextField.text = newValue.ToString();
+        }
+        else
+        {
+            _valueDisplayTextField.text = newValue.ToString(".0");
+        }
     }
 
     public void ForceNewValue(float newValue)
     {
         _scaleSlider.value = newValue;
-        _valueDisplayTextField.text = newValue.ToString();
+        if (_wholeNumber)
+        {
+            _valueDisplayTextField.text = newValue.ToString();
+        }
+        else
+        {
+            _valueDisplayTextField.text = newValue.ToString(".0");
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ColorHandler : MonoBehaviour
@@ -12,4 +13,18 @@ public class ColorHandler : MonoBehaviour
     {
         _cubeMaterial = GetComponent<Renderer>().sharedMaterial;
     }
+
+    private void Start()
+    {
+        ColorPanal.Instance.OnColorUpdated += UpdateCubeColor;
+    }
+
+    private void OnDestroy()
+    {
+        ColorPanal.Instance.OnColorUpdated -= UpdateCubeColor;
+    }
+
+    // Signal Methods------------------------------------------------------------------------------
+
+    private void UpdateCubeColor(Color color) => _cubeMaterial.color = color;
 }
