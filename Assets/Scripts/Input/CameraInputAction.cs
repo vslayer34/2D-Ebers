@@ -35,6 +35,15 @@ public partial class @CameraInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondaryClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""57a133f6-fe5f-42d8-8232-62a6a99cbf0b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -46,6 +55,17 @@ public partial class @CameraInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Mouse"",
                     ""action"": ""PrimaryClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b86c93e9-7d78-4980-9e4c-39ea04d9f550"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mouse"",
+                    ""action"": ""SecondaryClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -69,6 +89,7 @@ public partial class @CameraInputAction: IInputActionCollection2, IDisposable
         // MouseInteractions
         m_MouseInteractions = asset.FindActionMap("MouseInteractions", throwIfNotFound: true);
         m_MouseInteractions_PrimaryClick = m_MouseInteractions.FindAction("PrimaryClick", throwIfNotFound: true);
+        m_MouseInteractions_SecondaryClick = m_MouseInteractions.FindAction("SecondaryClick", throwIfNotFound: true);
     }
 
     ~@CameraInputAction()
@@ -136,11 +157,13 @@ public partial class @CameraInputAction: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_MouseInteractions;
     private List<IMouseInteractionsActions> m_MouseInteractionsActionsCallbackInterfaces = new List<IMouseInteractionsActions>();
     private readonly InputAction m_MouseInteractions_PrimaryClick;
+    private readonly InputAction m_MouseInteractions_SecondaryClick;
     public struct MouseInteractionsActions
     {
         private @CameraInputAction m_Wrapper;
         public MouseInteractionsActions(@CameraInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @PrimaryClick => m_Wrapper.m_MouseInteractions_PrimaryClick;
+        public InputAction @SecondaryClick => m_Wrapper.m_MouseInteractions_SecondaryClick;
         public InputActionMap Get() { return m_Wrapper.m_MouseInteractions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -153,6 +176,9 @@ public partial class @CameraInputAction: IInputActionCollection2, IDisposable
             @PrimaryClick.started += instance.OnPrimaryClick;
             @PrimaryClick.performed += instance.OnPrimaryClick;
             @PrimaryClick.canceled += instance.OnPrimaryClick;
+            @SecondaryClick.started += instance.OnSecondaryClick;
+            @SecondaryClick.performed += instance.OnSecondaryClick;
+            @SecondaryClick.canceled += instance.OnSecondaryClick;
         }
 
         private void UnregisterCallbacks(IMouseInteractionsActions instance)
@@ -160,6 +186,9 @@ public partial class @CameraInputAction: IInputActionCollection2, IDisposable
             @PrimaryClick.started -= instance.OnPrimaryClick;
             @PrimaryClick.performed -= instance.OnPrimaryClick;
             @PrimaryClick.canceled -= instance.OnPrimaryClick;
+            @SecondaryClick.started -= instance.OnSecondaryClick;
+            @SecondaryClick.performed -= instance.OnSecondaryClick;
+            @SecondaryClick.canceled -= instance.OnSecondaryClick;
         }
 
         public void RemoveCallbacks(IMouseInteractionsActions instance)
@@ -189,5 +218,6 @@ public partial class @CameraInputAction: IInputActionCollection2, IDisposable
     public interface IMouseInteractionsActions
     {
         void OnPrimaryClick(InputAction.CallbackContext context);
+        void OnSecondaryClick(InputAction.CallbackContext context);
     }
 }

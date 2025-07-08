@@ -34,20 +34,21 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         _cameraInputAction.Enable();
-        _cameraInputAction.MouseInteractions.PrimaryClick.performed += FirePrimaryClickEvent;
-        _cameraInputAction.MouseInteractions.PrimaryClick.canceled += CancelPrimaryClickEvent;
+
+        _cameraInputAction.MouseInteractions.SecondaryClick.performed += FireSecondaryClickEvent;
+        _cameraInputAction.MouseInteractions.SecondaryClick.canceled += CancelSecondaryClickEvent;
     }
 
     private void OnDestroy()
     {
-        _cameraInputAction.MouseInteractions.PrimaryClick.performed -= FirePrimaryClickEvent;
-        _cameraInputAction.MouseInteractions.PrimaryClick.canceled -= CancelPrimaryClickEvent;
+        _cameraInputAction.MouseInteractions.SecondaryClick.performed -= FireSecondaryClickEvent;
+        _cameraInputAction.MouseInteractions.SecondaryClick.canceled -= CancelSecondaryClickEvent;
         _cameraInputAction.Disable();
     }
 
     // Signal Methods------------------------------------------------------------------------------
 
-    private void FirePrimaryClickEvent(UnityEngine.InputSystem.InputAction.CallbackContext context) => OnLeftMouseClicked?.Invoke();
+    private void FireSecondaryClickEvent(UnityEngine.InputSystem.InputAction.CallbackContext context) => OnLeftMouseClicked?.Invoke();
 
-    private void CancelPrimaryClickEvent(UnityEngine.InputSystem.InputAction.CallbackContext context) => OnLeftMouseReleased?.Invoke();
+    private void CancelSecondaryClickEvent(UnityEngine.InputSystem.InputAction.CallbackContext context) => OnLeftMouseReleased?.Invoke();
 }

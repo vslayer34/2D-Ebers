@@ -3,13 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public enum ScaleAxis
+public enum VectorVariable
 {
     X,
     Y,
     Z
 }
-public class ScalePanal : MonoBehaviour
+public class ScalePanal : MonoBehaviour, ISlidableVariables
 {
     public Action<float> OnUniformSelected;
 
@@ -21,7 +21,7 @@ public class ScalePanal : MonoBehaviour
     private Toggle _uniformToggle;
 
     [SerializeField]
-    private ScaleSlider[] _scaleSliders;
+    private SliderConfig[] _scaleSliders;
 
 
 
@@ -46,7 +46,7 @@ public class ScalePanal : MonoBehaviour
     {
         foreach (var scaleSlider in _scaleSliders)
         {
-            scaleSlider.OnValueChanged += UpdateScaleValues;
+            scaleSlider.OnValueChanged += UpdateSliderValuesEffects;
         }
     }
 
@@ -54,13 +54,13 @@ public class ScalePanal : MonoBehaviour
     {
         foreach (var scaleSliders in _scaleSliders)
         {
-            scaleSliders.OnValueChanged -= UpdateScaleValues;
+            scaleSliders.OnValueChanged -= UpdateSliderValuesEffects;
         }
     }
 
-    // Signal Methods------------------------------------------------------------------------------
+    // Interface Methods---------------------------------------------------------------------------
 
-    private void UpdateScaleValues(ScaleAxis axis, float value)
+    public void UpdateSliderValuesEffects(VectorVariable axis, float value)
     {
         Vector3 changeInScaleValues = Vector3.zero;
 
@@ -77,19 +77,19 @@ public class ScalePanal : MonoBehaviour
         {
             switch (axis)
             {
-                case ScaleAxis.X:
+                case VectorVariable.X:
                     changeInScaleValues.x = value;
                     changeInScaleValues.y = ScaleValues.y;
                     changeInScaleValues.z = ScaleValues.z;
                     break;
 
-                case ScaleAxis.Y:
+                case VectorVariable.Y:
                     changeInScaleValues.x = ScaleValues.x;
                     changeInScaleValues.y = value;
                     changeInScaleValues.z = ScaleValues.z;
                     break;
 
-                case ScaleAxis.Z:
+                case VectorVariable.Z:
                     changeInScaleValues.x = ScaleValues.x;
                     changeInScaleValues.y = ScaleValues.y;
                     changeInScaleValues.z = value;
@@ -104,6 +104,5 @@ public class ScalePanal : MonoBehaviour
         
 
         ScaleValues = changeInScaleValues;
-        Debug.Log(ScaleValues);
     }
 }
