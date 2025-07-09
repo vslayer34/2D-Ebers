@@ -13,8 +13,6 @@ public class ScalePanal : MonoBehaviour, ISlidableVariables
 {
     public Action<float> OnUniformSelected;
 
-    public static ScalePanal Instance { get; private set; }
-
     public Vector3 ScaleValues { get; private set; } = Vector3.one;
 
     [SerializeField]
@@ -28,19 +26,6 @@ public class ScalePanal : MonoBehaviour, ISlidableVariables
 
 
     // Game Loop Methods---------------------------------------------------------------------------
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-            return;
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
 
     private void Start()
     {

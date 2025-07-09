@@ -16,12 +16,12 @@ public class ColorHandler : MonoBehaviour
 
     private void Start()
     {
-        ColorPanal.Instance.OnColorUpdated += UpdateCubeColor;
+        HUD.Instance.ColorPanalUI.OnColorUpdated += UpdateCubeColor;
     }
 
     private void OnDestroy()
     {
-        ColorPanal.Instance.OnColorUpdated -= UpdateCubeColor;
+        HUD.Instance.ColorPanalUI.OnColorUpdated -= UpdateCubeColor;
     }
 
     // Signal Methods------------------------------------------------------------------------------

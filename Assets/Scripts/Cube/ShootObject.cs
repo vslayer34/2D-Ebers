@@ -48,7 +48,7 @@ public class ShootObject : MonoBehaviour
 
     private void LaunchUpWords(Vector3 target)
     {
-        float launchSpeed = 1.0f;
+        float launchSpeed = 2.0f;
         StartCoroutine(MoveToTarget(launchSpeed, target));
     }
 
