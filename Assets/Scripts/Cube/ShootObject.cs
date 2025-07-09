@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,7 +13,13 @@ public class ShootObject : MonoBehaviour
 
     private void Start()
     {
-        LaunchUpWords();
+        InputManager.Instance.OnLeftMouseClicked += HeadToTarget;
+        LaunchUpWords(Vector3.zero);
+    }
+
+    private void OnDestroy()
+    {
+        InputManager.Instance.OnLeftMouseClicked -= HeadToTarget;
     }
 
     // Member Methods------------------------------------------------------------------------------
@@ -33,9 +40,30 @@ public class ShootObject : MonoBehaviour
         transform.position = targetPosition;
     }
 
-    private void LaunchUpWords()
+    private void LaunchUpWords(Vector3 target, out float launchSpeed )
     {
-        float launchSpeed = 0.5f;
-        StartCoroutine(MoveToTarget(launchSpeed, Vector3.up));
+        launchSpeed = 1.0f;
+        StartCoroutine(MoveToTarget(launchSpeed, target));
+    }
+
+    private void LaunchUpWords(Vector3 target)
+    {
+        float launchSpeed = 1.0f;
+        StartCoroutine(MoveToTarget(launchSpeed, target));
+    }
+
+    private IEnumerator ShootCube(Vector3 targetPosition)
+    {
+        LaunchUpWords(Vector3.up, out float launchSpeed);
+        yield return new WaitForSeconds(1.0f / launchSpeed);
+
+        StartCoroutine(MoveToTarget(_speed, targetPosition));
+    }
+
+    // Signal Methods------------------------------------------------------------------------------
+
+    private void HeadToTarget(Vector3 targetPosition)
+    {
+        StartCoroutine(ShootCube(targetPosition));
     }
 }

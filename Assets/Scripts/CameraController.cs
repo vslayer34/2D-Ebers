@@ -19,14 +19,14 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        InputManager.Instance.OnLeftMouseClicked += EnableCameraMovement;
-        InputManager.Instance.OnLeftMouseReleased += DisableCameraMovement;
+        InputManager.Instance.OnRightMouseClicked += EnableCameraMovement;
+        InputManager.Instance.OnRightMouseReleased += DisableCameraMovement;
     }
 
     private void OnDestroy()
     {
-        InputManager.Instance.OnLeftMouseClicked -= EnableCameraMovement;
-        InputManager.Instance.OnLeftMouseReleased -= DisableCameraMovement;
+        InputManager.Instance.OnRightMouseClicked -= EnableCameraMovement;
+        InputManager.Instance.OnRightMouseReleased -= DisableCameraMovement;
     }
 
     // Signal Methods------------------------------------------------------------------------------
