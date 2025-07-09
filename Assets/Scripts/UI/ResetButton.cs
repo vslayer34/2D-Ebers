@@ -34,6 +34,6 @@ public class ResetButton : MonoBehaviour
 
     private void OnEnable()
     {
-        LeanTween.moveY(gameObject, 100.0f, 1.5f);
+        LeanTween.moveY(gameObject, 100.0f, 0.5f);
     }
 }
