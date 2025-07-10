@@ -6,7 +6,7 @@ public class ColorPanal : MonoBehaviour, ISlidableVariables
 {
     public Action<Color> OnColorUpdated;
 
-    public Vector3 ScaleValues { get; private set; } = Vector3.zero;
+    public Vector3 ScaleValues { get; private set; } = new Vector3(255.0f, 255.0f, 255.0f);
 
     [SerializeField]
     private Image _colorDisplay;
