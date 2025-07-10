@@ -12,6 +12,7 @@ public class ColorHandler : MonoBehaviour
     private void Awake()
     {
         _cubeMaterial = GetComponent<Renderer>().sharedMaterial;
+        _cubeMaterial = GetComponent<Renderer>().sharedMaterial = new Material(_cubeMaterial);
     }
 
     private void Start()
